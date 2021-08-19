@@ -19,7 +19,9 @@ function App() {
                 <Route path='/log-out' component={Logout} />
                 <Route path='/profile' component={Profile} />
                 <Route path='/private-messages' component={PrivMessages} />
-                <Route exact path='/' component={HomePage} />
+                <Route exact path='/'>
+                  <Redirect to='/home' />
+                </Route>
             </Switch>
         </Router>
     </div>
