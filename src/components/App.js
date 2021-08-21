@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 import HomePage from './HomePage'
 import Signup from './Signup'
@@ -6,19 +6,56 @@ import Login from './Login'
 import Logout from './Logout'
 import Profile from './Profile'
 import PrivMessages from './PrivMessages'
+import { EmptyHeader, UnauthenticatedHeader, AuthenticatedHeader } from './Headers'
 
 
 function App() {
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+
   return (
     <div>
         <Router>
             <Switch>
-                <Route path='/home' component={HomePage} />
-                <Route path='/sign-up' component={Signup} />
-                <Route path='/log-in' component={Login} />
-                <Route path='/log-out' component={Logout} />
-                <Route path='/profile' component={Profile} />
-                <Route path='/private-messages' component={PrivMessages} />
+                <Route path='/home'>
+                  <HomePage 
+                  AuthenticatedHeader={<AuthenticatedHeader/>} 
+                  UnauthenticatedHeader={<UnauthenticatedHeader/>}
+                  isUserLoggedIn={isUserLoggedIn}
+                  />
+                </Route>
+
+                <Route path='/sign-up'>
+                  <Signup 
+                  EmptyHeader={<EmptyHeader/>}
+                  />
+                </Route>
+
+                <Route path='/log-in'>
+                  <Login 
+                  EmptyHeader={<EmptyHeader/>}
+                  />
+                </Route>
+
+                <Route path='/log-out'>
+                  <Logout 
+                  EmptyHeader={<EmptyHeader/>}
+                  />
+                </Route>
+
+                <Route path='/profile'>
+                  <Profile 
+                  AuthenticatedHeader={<AuthenticatedHeader/>}
+                  isUserLoggedIn={isUserLoggedIn}
+                  />
+                </Route>
+
+                <Route path='/private-messages'>
+                  <PrivMessages AuthenticatedHeader={<AuthenticatedHeader/>}
+                  isUserLoggedIn={isUserLoggedIn}
+                  />
+                </Route>
+
                 <Route exact path='/'>
                   <Redirect to='/home' />
                 </Route>
