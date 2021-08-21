@@ -19,18 +19,25 @@ export default function Signup() {
         event.preventDefault()
         setError(null)
 
-
-        if(password !== '' && password === confirmPassword) {
-            _registerUser()
+        if(username !== '') {
+            checkEmail()
         } else {
-            setError('Please make sure your passwords match!')
+            setError('Please enter a username!')
         }
 
-        async function _registerUser() {
-            if (username !== '') {
+        async function checkEmail() {
+            if(email !== '') {
+                checkPassword()
+            } else {
+                setError('Please enter your email address!')
+            }
+        }
+
+        async function checkPassword() {
+            if(password !== '' && password === confirmPassword) {
                 registerUser()
             } else {
-                setError('Please enter a username!')
+                setError('Please make sure the passwords you entered match!')
             }
         }
 
