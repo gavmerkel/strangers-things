@@ -12,6 +12,8 @@ import { EmptyHeader, UnauthenticatedHeader, AuthenticatedHeader } from './Heade
 function App() {
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const [authenticated, setAuthenticated] = useState(false);
+    // User
 
   return (
     <div>
@@ -34,6 +36,8 @@ function App() {
                 <Route path='/log-in'>
                   <Login 
                   EmptyHeader={<EmptyHeader/>}
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
                   />
                 </Route>
 
@@ -59,6 +63,11 @@ function App() {
                 <Route exact path='/'>
                   <Redirect to='/home' />
                 </Route>
+
+                <Route path="*">
+                        <h1>404 Error - Page Not Found!</h1>    
+                </Route>
+                
             </Switch>
         </Router>
     </div>
