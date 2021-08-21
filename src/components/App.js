@@ -14,12 +14,28 @@ function App() {
     <div>
         <Router>
             <Switch>
-                <Route path='/home' component={HomePage} />
-                <Route path='/sign-up' component={Signup} />
-                <Route path='/log-in' component={Login} />
-                <Route path='/log-out' component={Logout} />
-                <Route path='/profile' component={Profile} />
-                <Route path='/private-messages' component={PrivMessages} />
+                <Route path='/home'>
+                  <HomePage />
+                </Route>
+
+                <Route path='/sign-up'>
+                  <Signup />
+                </Route>
+
+                <Route path='/log-in'>
+                  <Login />
+                </Route>
+
+                <Route path='/log-out'>
+                  <Logout />
+                </Route>
+
+                <Route path='/profile'>
+                  <Profile />
+                </Route>
+                <Route path='/private-messages'>
+                  <PrivMessages />
+                </Route>
                 <Route exact path='/'>
                   <Redirect to='/home' />
                 </Route>
