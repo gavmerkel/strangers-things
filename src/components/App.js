@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 import HomePage from './HomePage'
 import Signup from './Signup'
@@ -10,32 +10,52 @@ import { EmptyHeader, UnauthenticatedHeader, AuthenticatedHeader } from './Heade
 
 
 function App() {
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+
   return (
     <div>
         <Router>
             <Switch>
                 <Route path='/home'>
-                  <HomePage />
+                  <HomePage 
+                  AuthenticatedHeader={<AuthenticatedHeader/>} 
+                  UnauthenticatedHeader={<UnauthenticatedHeader/>}
+                  isUserLoggedIn={isUserLoggedIn}
+                  />
                 </Route>
 
                 <Route path='/sign-up'>
-                  <Signup />
+                  <Signup 
+                  EmptyHeader={<EmptyHeader/>}
+                  />
                 </Route>
 
                 <Route path='/log-in'>
-                  <Login />
+                  <Login 
+                  EmptyHeader={<EmptyHeader/>}
+                  />
                 </Route>
 
                 <Route path='/log-out'>
-                  <Logout />
+                  <Logout 
+                  EmptyHeader={<EmptyHeader/>}
+                  />
                 </Route>
 
                 <Route path='/profile'>
-                  <Profile />
+                  <Profile 
+                  AuthenticatedHeader={<AuthenticatedHeader/>}
+                  isUserLoggedIn={isUserLoggedIn}
+                  />
                 </Route>
+
                 <Route path='/private-messages'>
-                  <PrivMessages />
+                  <PrivMessages AuthenticatedHeader={<AuthenticatedHeader/>}
+                  isUserLoggedIn={isUserLoggedIn}
+                  />
                 </Route>
+
                 <Route exact path='/'>
                   <Redirect to='/home' />
                 </Route>

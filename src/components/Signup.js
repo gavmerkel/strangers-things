@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { Card, Form, Button, Container, Alert } from 'react-bootstrap'
 import { BASE_URL } from './Api'
 
-export default function Signup() {
+export default function Signup(props) {
 
+    const {EmptyHeader} = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -69,9 +70,10 @@ export default function Signup() {
 
     return (
         <>
+        {EmptyHeader}
         <Container className='d-flex flex-column align-items-center justify-content-center' style={{ minHeight: '100vh' }}>
 
-            
+    
             <Card >
                 <Card.Body className='text-center'>
                     <Form onSubmit={handleSubmit}>
