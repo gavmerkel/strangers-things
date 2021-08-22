@@ -6,12 +6,13 @@ import Login from './Login'
 import Logout from './Logout'
 import Profile from './Profile'
 import PrivMessages from './PrivMessages'
+import UnknownPath from './UnknownPath'
 import { EmptyHeader, UnauthenticatedHeader, AuthenticatedHeader } from './Headers'
 
 
 function App() {
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
   const [authenticated, setAuthenticated] = useState(false);
     // User
 
@@ -43,7 +44,7 @@ function App() {
 
                 <Route path='/log-out'>
                   <Logout 
-                  EmptyHeader={<EmptyHeader/>}
+                  AuthenticatedHeader={<AuthenticatedHeader/>}
                   />
                 </Route>
 
@@ -55,7 +56,8 @@ function App() {
                 </Route>
 
                 <Route path='/private-messages'>
-                  <PrivMessages AuthenticatedHeader={<AuthenticatedHeader/>}
+                  <PrivMessages 
+                  AuthenticatedHeader={<AuthenticatedHeader/>}
                   isUserLoggedIn={isUserLoggedIn}
                   />
                 </Route>
@@ -65,9 +67,10 @@ function App() {
                 </Route>
 
                 <Route path="*">
-                        <h1>404 Error - Page Not Found!</h1>    
+                  <UnknownPath EmptyHeader={<EmptyHeader/>}
+                  />  
                 </Route>
-                
+
             </Switch>
         </Router>
     </div>

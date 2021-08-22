@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import { Link, Redirect } from 'react-router-dom'
 
-const Login = ({setAuthenticated}) => {
+const Login = (props) => {
     const [formSubmittedSuccessfully, setFormSubmittedSuccessfully] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const {EmptyHeader} = props
 
     function authenticate(event) {
         event.preventDefault();
@@ -16,8 +17,8 @@ const Login = ({setAuthenticated}) => {
                 },
                 body: JSON.stringify({
                     user: {
-                        username: '{username}',
-                        password: '{password}'
+                        username: username,
+                        password: password
                     }
                 })
             }).then(response => response.json())
@@ -26,14 +27,17 @@ const Login = ({setAuthenticated}) => {
             })
             .catch(console.error);
         }
-        setFormSubmittedSuccessfully(true);
+        //setFormSubmittedSuccessfully(true);
     }
 
     if(formSubmittedSuccessfully) {
-        return <Redirect to="/Signup" />
+        return <Redirect to="/home" />
     }
 
     return (
+        <>
+        {EmptyHeader}
+
         <section className="login">
         <form onSubmit={authenticate}>
             <label>
@@ -45,9 +49,10 @@ const Login = ({setAuthenticated}) => {
             <input type="text" password="password" onChange= {(event) => setPassword(event.target.value)} value={password}/>
             </label>
             <button type="submit">LOGIN</button>
-            <Link className="lnkBtn" to="/Signup">SIGN UP</Link>
+            <Link className="lnkBtn" to="/sign-up">SIGN UP</Link>
         </form>
         </section>
+        </>
     )
     
 }

@@ -2,9 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
-export default function Profile() {
+export default function Profile(props) {
+
+    const { AuthenticatedHeader } = props
+
     return (
         <>
+
+        { AuthenticatedHeader }
+
         <div>
             This is where you can customize your profile.
 
