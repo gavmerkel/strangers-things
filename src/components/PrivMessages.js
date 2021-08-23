@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 
 export default function PrivMessages(props) {
 
-    const { AuthenticatedHeader } = props
+    const { AuthenticatedHeader, loggedInUser } = props
 
     return (
         <>

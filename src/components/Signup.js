@@ -62,7 +62,7 @@ export default function Signup(props) {
                 console.log(data)
 
             } catch (error) {
-                console.error(error)
+                setError('Something went wrong! Try again.')
             }
         }
 

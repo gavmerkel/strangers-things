@@ -12,9 +12,9 @@ import { EmptyHeader, UnauthenticatedHeader, AuthenticatedHeader } from './Heade
 
 function App() {
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
-  const [authenticated, setAuthenticated] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null)
     // User
+
 
   return (
     <div>
@@ -24,7 +24,8 @@ function App() {
                   <HomePage 
                   AuthenticatedHeader={<AuthenticatedHeader/>} 
                   UnauthenticatedHeader={<UnauthenticatedHeader/>}
-                  isUserLoggedIn={isUserLoggedIn}
+                  loggedInUser={loggedInUser}
+                  setLoggedInUser={setLoggedInUser}
                   />
                 </Route>
 
@@ -37,28 +38,30 @@ function App() {
                 <Route path='/log-in'>
                   <Login 
                   EmptyHeader={<EmptyHeader/>}
-                  authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
+                  loggedInUser={loggedInUser}
+                  setLoggedInUser={setLoggedInUser}
                   />
                 </Route>
 
                 <Route path='/log-out'>
                   <Logout 
                   AuthenticatedHeader={<AuthenticatedHeader/>}
+                  loggedInUser={loggedInUser}
+                  setLoggedInUser={setLoggedInUser}
                   />
                 </Route>
 
                 <Route path='/profile'>
                   <Profile 
                   AuthenticatedHeader={<AuthenticatedHeader/>}
-                  isUserLoggedIn={isUserLoggedIn}
+                  loggedInUser={loggedInUser}
                   />
                 </Route>
 
                 <Route path='/private-messages'>
                   <PrivMessages 
                   AuthenticatedHeader={<AuthenticatedHeader/>}
-                  isUserLoggedIn={isUserLoggedIn}
+                  loggedInUser={loggedInUser}
                   />
                 </Route>
 
