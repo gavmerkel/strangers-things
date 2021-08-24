@@ -78,7 +78,11 @@ export default function Signup(props) {
                 <Card.Body className='text-center'>
                     <Form onSubmit={handleSubmit}>
                         {error ? <Alert variant='danger'>{error}</Alert> : null}
-                        {message ? <Alert variant='success'>{message}</Alert> : null}
+                        {message ? <Alert variant='success'>
+                            {message}
+                            <br/>
+                            Click <Link to='/log-in'>here</Link> to log in.
+                            </Alert> : null}
                         <Card.Title>SIGN UP</Card.Title>
 
                         <Card.Text>

@@ -39,7 +39,7 @@ export default function HomePage(props) {
 
     
     fetchPosts()
-    console.log()
+    console.log(postList)
 
     function renderPost(post) {
 
@@ -82,7 +82,7 @@ export default function HomePage(props) {
 }
 
 
-<Card className="mt-5">
+{/* <Card className="mt-5">
         <Card.Body>
             <Card.Title>Title of Post</Card.Title>
             <Card.Text>
@@ -96,4 +96,4 @@ export default function HomePage(props) {
             <input type="text" placeHolder="Send a message..."/>
             <Button variant="primary" className="mx-3">Send</Button>
         </Card.Body>
-        </Card>
+        </Card> */}
