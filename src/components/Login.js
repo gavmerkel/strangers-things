@@ -30,7 +30,7 @@ const Login = ({setAuthenticated}) => {
     }
 
     if(formSubmittedSuccessfully) {
-        return <Redirect to="/Signup" />
+        return <Redirect to="/Signup" />    
     }
 
     return (
