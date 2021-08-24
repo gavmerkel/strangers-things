@@ -1,10 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
 export default function Profile(props) {
 
     const { AuthenticatedHeader } = props
+
+    if(!localStorage.getItem('currentUserToken')) {
+        return <Redirect to="/urnotloggedin" />
+    }
 
     return (
         <>

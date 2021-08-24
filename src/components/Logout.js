@@ -10,7 +10,7 @@ export default function Logout(props) {
         localStorage.removeItem('currentUserToken')
     }
 
-    _logOut()
+    
 
     return (
         <>
@@ -28,6 +28,7 @@ export default function Logout(props) {
 
                         <Link to='/home'><Button className='mt-3 mx-3' variant='primary' onClick={() => {
                             setLoggedInUser(null)
+                            _logOut()
                             }}>Confirm</Button></Link>
                         <Link to='/home'><Button className='mt-3 mx-3' variant='danger'>Cancel</Button></Link>
 
