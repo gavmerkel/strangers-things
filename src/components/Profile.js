@@ -10,6 +10,8 @@ export default function Profile(props) {
         return <Redirect to="/urnotloggedin" />
     }
 
+    
+
     return (
         <>
 
@@ -38,8 +40,8 @@ export default function Profile(props) {
         </div>
 
         <div>
-            <Button><Link to='/home'>Cancel</Link></Button>
-            <Button><Link to='/home'>Done</Link></Button>
+            <Link to='/home'><Button>Cancel</Button></Link>
+            <Link to='/home'><Button>Done</Button></Link>
         </div>
 
         Done will save changes and Cancel will return back to homepage without changing anything
