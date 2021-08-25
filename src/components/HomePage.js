@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 //import { Link } from 'react-router-dom'
 import { Button, Card } from 'react-bootstrap'
 import { BASE_URL } from './Api'
+import RenderPosts from './RenderPosts'
 
 export default function HomePage(props) {
 
     const {AuthenticatedHeader, UnauthenticatedHeader, loggedInUser, setLoggedInUser} = props
-    let postList
+    const [postList, setPostList] = useState([])
     
 
     function checkIfLoggedIn() {
-        if(!localStorage.getItem('currentUserToken')) {
-            setLoggedInUser(null)
-        } else if(localStorage.getItem('currentUserToken')) {
-            setLoggedInUser(localStorage.getItem('currentUserToken'))
+        if(localStorage.getItem('currentUserToken')) {
+            const currentToken = localStorage.getItem('currentUserToken')
+            useEffect(() => {
+                setLoggedInUser(currentToken)
+            }, [])
         }
     }
 
@@ -24,12 +26,12 @@ export default function HomePage(props) {
         try {
             const result = await fetch(`${BASE_URL}/posts`)
 
-            const data = await result.json()
+            const response = await result.json()
 
             //console.log(data.data.posts)
             
-            postList = data.data.posts
-            console.log(postList)
+            setPostList(response.data.posts)
+            
 
         } catch(error) {
             console.log(error)
@@ -37,30 +39,33 @@ export default function HomePage(props) {
 
     }
 
+    useEffect(() => {
+        fetchPosts()
+    }, [])
     
-    fetchPosts()
+    
     console.log(postList)
 
-    function renderPost(post) {
+    // function renderPost(post) {
 
-        const { title, description, price, location, author: {username} } = post
+    //     const { title, description, price, location, author: {username} } = post
 
-        return $(`<Card className="mt-5">
-                <Card.Body>
-                    <Card.Title>${title}</Card.Title>
-                    <Card.Text>
-                    ${description}
-                    </Card.Text>
-                    <Card.Footer>
-                        <p>Price: ${price}</p>
-                        <p>Seller: ${username}</p>
-                        <p>Location: ${location}</p>
-                    </Card.Footer>
-                    <input type="text" placeHolder="Send a message..."/>
-                    <Button variant="primary" className="mx-3">Send</Button>
-                </Card.Body>
-                </Card>`)
-    }
+    //     return (<Card className="mt-5">
+    //             <Card.Body>
+    //                 <Card.Title>${title}</Card.Title>
+    //                 <Card.Text>
+    //                 ${description}
+    //                 </Card.Text>
+    //                 <Card.Footer>
+    //                     <p>Price: ${price}</p>
+    //                     <p>Seller: ${username}</p>
+    //                     <p>Location: ${location}</p>
+    //                 </Card.Footer>
+    //                 <input type="text" placeHolder="Send a message..."/>
+    //                 <Button variant="primary" className="mx-3">Send</Button>
+    //             </Card.Body>
+    //             </Card>)
+    // }
 
 
     return (
@@ -73,7 +78,16 @@ export default function HomePage(props) {
         </div>
 
 
-        {console.log(postList)}
+        {postList.map((post) => {
+            return <RenderPosts 
+                    title={post.title}
+                    description={post.description}
+                    price={post.price}
+                    location={post.location}
+                    username={post.author.username}
+                    key={post._id}/>
+        })}
+
 
         
 
