@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 //import { Link } from 'react-router-dom'
-import { Button, Card } from 'react-bootstrap'
 import { BASE_URL } from './Api'
 import RenderPosts from './RenderPosts'
+import SearchBox from './SearchBox'
 
 export default function HomePage(props) {
 
@@ -72,10 +72,8 @@ export default function HomePage(props) {
         <>
         {loggedInUser ? AuthenticatedHeader : null}
         {!loggedInUser ? UnauthenticatedHeader : null}
-        <div>
-            This is the Home Page 
-            where you can see public posts and comments but you will not be able to comment or send a message
-        </div>
+        <SearchBox />
+        
 
 
         {postList.map((post) => {
@@ -85,7 +83,9 @@ export default function HomePage(props) {
                     price={post.price}
                     location={post.location}
                     username={post.author.username}
-                    key={post._id}/>
+                    key={post._id}
+                    loggedInUser={loggedInUser}
+                    />
         })}
 
 

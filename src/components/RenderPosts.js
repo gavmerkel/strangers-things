@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap'
 
 export default function RenderPosts(post) {
 
-    const { title, description, price, location, username} = post
+    const { title, description, price, location, username, loggedInUser} = post
 
     return (<Card className="mt-5">
             <Card.Body className="square border border-4 border-dark">
@@ -16,8 +16,8 @@ export default function RenderPosts(post) {
                     <p>Seller: {username}</p>
                     <p>Location: {location}</p>
                 </Card.Footer>
-                <input type="text" placeholder="Send a message..."/>
-                <Button variant="primary" className="mx-3">Send</Button>
+                <input disabled={!loggedInUser} type="text" placeholder="Send a message..."/>
+                <Button disabled={!loggedInUser} variant="primary" className="mx-3">Send</Button>
             </Card.Body>
             </Card>)
 }
