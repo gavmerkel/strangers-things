@@ -6,12 +6,15 @@ import Login from './Login'
 import Logout from './Logout'
 import Profile from './Profile'
 import PrivMessages from './PrivMessages'
+import UnknownPath from './UnknownPath'
 import { EmptyHeader, UnauthenticatedHeader, AuthenticatedHeader } from './Headers'
 
 
 function App() {
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const [loggedInUser, setLoggedInUser] = useState(null)
+    // User
+
 
   return (
     <div>
@@ -21,7 +24,8 @@ function App() {
                   <HomePage 
                   AuthenticatedHeader={<AuthenticatedHeader/>} 
                   UnauthenticatedHeader={<UnauthenticatedHeader/>}
-                  isUserLoggedIn={isUserLoggedIn}
+                  loggedInUser={loggedInUser}
+                  setLoggedInUser={setLoggedInUser}
                   />
                 </Route>
 
@@ -34,31 +38,42 @@ function App() {
                 <Route path='/log-in'>
                   <Login 
                   EmptyHeader={<EmptyHeader/>}
+                  loggedInUser={loggedInUser}
+                  setLoggedInUser={setLoggedInUser}
                   />
                 </Route>
 
                 <Route path='/log-out'>
                   <Logout 
-                  EmptyHeader={<EmptyHeader/>}
+                  AuthenticatedHeader={<AuthenticatedHeader/>}
+                  loggedInUser={loggedInUser}
+                  setLoggedInUser={setLoggedInUser}
                   />
                 </Route>
 
                 <Route path='/profile'>
                   <Profile 
                   AuthenticatedHeader={<AuthenticatedHeader/>}
-                  isUserLoggedIn={isUserLoggedIn}
+                  loggedInUser={loggedInUser}
                   />
                 </Route>
 
                 <Route path='/private-messages'>
-                  <PrivMessages AuthenticatedHeader={<AuthenticatedHeader/>}
-                  isUserLoggedIn={isUserLoggedIn}
+                  <PrivMessages 
+                  AuthenticatedHeader={<AuthenticatedHeader/>}
+                  loggedInUser={loggedInUser}
                   />
                 </Route>
 
                 <Route exact path='/'>
                   <Redirect to='/home' />
                 </Route>
+
+                <Route path="*">
+                  <UnknownPath EmptyHeader={<EmptyHeader/>}
+                  />  
+                </Route>
+
             </Switch>
         </Router>
     </div>

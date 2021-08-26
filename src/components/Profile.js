@@ -1,23 +1,39 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
-export default function Profile() {
+export default function Profile(props) {
+
+    const { AuthenticatedHeader } = props
+
+    if(!localStorage.getItem('currentUserToken')) {
+        return <Redirect to="/urnotloggedin" />
+    }
+
+    fetch('https://strangers-things.herokuapp.com/api/2105-VPI-RM-WEB-PT/users/me'), {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer currentUserToken'
+        },
+    }).then(response => response.json())
+      .then(result => {
+          console.log(result);
+      })
+      .catch(console.error);
+    }
+
     return (
         <>
-        <div>
-            This is where you can customize your profile.
 
-            change profile picture?
-            change available public information like location/etc
+        { AuthenticatedHeader }
+
+        <div>
             <div>
                 <input type='text' placeholder='Change Username' />
             </div>
-
-            
         </div>
 
-        
+             
 
         <div>
             <input type='text' placeholder='Change Password' />
@@ -28,8 +44,8 @@ export default function Profile() {
         </div>
 
         <div>
-            <Button><Link to='/home'>Cancel</Link></Button>
-            <Button><Link to='/home'>Done</Link></Button>
+            <Link to='/home'><Button>Cancel</Button></Link>
+            <Link to='/home'><Button>Done</Button></Link>
         </div>
 
         Done will save changes and Cancel will return back to homepage without changing anything

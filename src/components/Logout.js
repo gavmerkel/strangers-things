@@ -1,24 +1,45 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
+import { Link, Redirect } from 'react-router-dom'
+import { Card, Form, Button, Container, Alert } from 'react-bootstrap'
 
-export default function Logout() {
+export default function Logout(props) {
+
+    const { AuthenticatedHeader, setLoggedInUser } = props
+
+    function _logOut() {
+        localStorage.removeItem('currentUserToken')
+    }
+
+    
+
     return (
         <>
-        <div>
-            This is where user will log out
 
-            cancel?
-            confirm?
-        </div>
+        { AuthenticatedHeader }
 
-        <div>
-            <Button><Link to='/home'>Log Out</Link></Button>
-            <Button><Link to='/home'>Cancel</Link></Button>
-        </div>
+        <Container className='d-flex flex-column align-items-center justify-content-center' style={{ minHeight: '100vh' }}>
 
-        Both links will go back to the home page, except one button will set userIsLoggedIn to false
-        and the other will just return as if nothing happened
+    
+            <Card >
+                <Card.Body className='text-center'>
+                    <Form>
+                        <Card.Title>Log Out</Card.Title>
+
+
+                        <Link to='/home'><Button className='mt-3 mx-3' variant='primary' onClick={() => {
+                            setLoggedInUser(null)
+                            _logOut()
+                            }}>Confirm</Button></Link>
+                        <Link to='/home'><Button className='mt-3 mx-3' variant='danger'>Cancel</Button></Link>
+
+                    </Form>
+
+                </Card.Body>
+            </Card>
+
+
+
+        </Container>
 
         </>
     )
