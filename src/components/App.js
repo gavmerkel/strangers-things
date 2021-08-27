@@ -4,7 +4,6 @@ import HomePage from './HomePage'
 import Signup from './Signup'
 import Login from './Login'
 import Logout from './Logout'
-import Profile from './Profile'
 import PrivMessages from './PrivMessages'
 import CreatePost from './CreatePost'
 import UnknownPath from './UnknownPath'
@@ -49,13 +48,6 @@ function App() {
                   AuthenticatedHeader={<AuthenticatedHeader/>}
                   loggedInUser={loggedInUser}
                   setLoggedInUser={setLoggedInUser}
-                  />
-                </Route>
-
-                <Route path='/profile'>
-                  <Profile 
-                  AuthenticatedHeader={<AuthenticatedHeader/>}
-                  loggedInUser={loggedInUser}
                   />
                 </Route>
 
