@@ -83,6 +83,7 @@ const Login = (props) => {
                     return;
                 } else if(data.success === true) {
                     localStorage.setItem('currentUserToken', data.data.token)
+                    localStorage.setItem('currentUserUsername', username)
                     setLoggedInUser(data.data.token)
                     setFormSubmittedSuccessfully(true)
                     console.log(data)

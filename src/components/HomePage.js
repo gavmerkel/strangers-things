@@ -27,12 +27,10 @@ export default function HomePage(props) {
             const result = await fetch(`${BASE_URL}/posts`)
 
             const response = await result.json()
-
-            //console.log(data.data.posts)
             
+            console.log(response.data.posts)
             setPostList(response.data.posts)
             
-
         } catch(error) {
             console.log(error)
         }
@@ -43,36 +41,19 @@ export default function HomePage(props) {
         fetchPosts()
     }, [])
     
-    
-    console.log(postList)
+    function handleSearchClick() {
+        console.log('Search Clicked')
+    }
 
-    // function renderPost(post) {
 
-    //     const { title, description, price, location, author: {username} } = post
 
-    //     return (<Card className="mt-5">
-    //             <Card.Body>
-    //                 <Card.Title>${title}</Card.Title>
-    //                 <Card.Text>
-    //                 ${description}
-    //                 </Card.Text>
-    //                 <Card.Footer>
-    //                     <p>Price: ${price}</p>
-    //                     <p>Seller: ${username}</p>
-    //                     <p>Location: ${location}</p>
-    //                 </Card.Footer>
-    //                 <input type="text" placeHolder="Send a message..."/>
-    //                 <Button variant="primary" className="mx-3">Send</Button>
-    //             </Card.Body>
-    //             </Card>)
-    // }
 
 
     return (
         <>
         {loggedInUser ? AuthenticatedHeader : null}
         {!loggedInUser ? UnauthenticatedHeader : null}
-        <SearchBox />
+        <SearchBox handleSearchClick={handleSearchClick} loggedInUser={loggedInUser}/>
         
 
 
@@ -83,6 +64,8 @@ export default function HomePage(props) {
                     price={post.price}
                     location={post.location}
                     username={post.author.username}
+                    willDeliver={post.willDeliver}
+                    id={post._id}
                     key={post._id}
                     loggedInUser={loggedInUser}
                     />
@@ -94,20 +77,3 @@ export default function HomePage(props) {
         </>
     )
 }
-
-
-{/* <Card className="mt-5">
-        <Card.Body>
-            <Card.Title>Title of Post</Card.Title>
-            <Card.Text>
-            description
-            </Card.Text>
-            <Card.Footer>
-                <p>Price: $500</p>
-                <p>Seller: Username</p>
-                <p>Location: city/state</p>
-            </Card.Footer>
-            <input type="text" placeHolder="Send a message..."/>
-            <Button variant="primary" className="mx-3">Send</Button>
-        </Card.Body>
-        </Card> */}

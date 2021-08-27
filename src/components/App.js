@@ -6,6 +6,7 @@ import Login from './Login'
 import Logout from './Logout'
 import Profile from './Profile'
 import PrivMessages from './PrivMessages'
+import CreatePost from './CreatePost'
 import UnknownPath from './UnknownPath'
 import { EmptyHeader, UnauthenticatedHeader, AuthenticatedHeader } from './Headers'
 
@@ -60,6 +61,13 @@ function App() {
 
                 <Route path='/private-messages'>
                   <PrivMessages 
+                  AuthenticatedHeader={<AuthenticatedHeader/>}
+                  loggedInUser={loggedInUser}
+                  />
+                </Route>
+
+                <Route path='/create-a-post'>
+                  <CreatePost 
                   AuthenticatedHeader={<AuthenticatedHeader/>}
                   loggedInUser={loggedInUser}
                   />
