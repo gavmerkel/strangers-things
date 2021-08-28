@@ -34,17 +34,20 @@ export default function PrivMessages(props) {
 
     }
 
+    if (userisLoggedIn) {
+
     return (
         <>
 
         { AuthenticatedHeader }
 
         <div>
-            This is where we can display cards showing username/pfp and last few words of the latest text
+            
 
-            example:
-            *pfp* John Doe
-            "Hi! I am interested in....""
+            <p>This is where we will render the messages between the current user and whoever the other user is.</p>
+
+            <p>Only accessible if userIsLoggedIn is set to true</p>
+            
         </div>
 
         <Button className='mx-5 mt-5' onClick={() => {
@@ -53,4 +56,5 @@ export default function PrivMessages(props) {
 
         </>
     )
+    }
 }

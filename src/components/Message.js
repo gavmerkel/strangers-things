@@ -8,19 +8,45 @@ export default function Message(props) {
         return <Redirect to="/urnotloggedin" />
     }
 
+    async function fetchMessages() {
+
+        try {
+            const result = await fetch(`${BASE_URL}/users/me`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('currentUserToken')}`
+                }
+            })
+
+            const data = await result.json()
+            console.log(data)
+            messagesArray = data.data.messages
+        } catch(error) {
+            console.log(error)
+        }
+
+    }
+
+
+    fetchMessages()
     return (
         <>
 
         { AuthenticatedHeader }
 
-        <div>
-            <p>This is where we will render the messages between the current user and whoever the other user is.</p>
-
-            <p>Only accessible if userIsLoggedIn is set to true</p>
-            
-        </div>
-    )     
-
+        {messagesArray.map((content, username) => {
+        return (
+            $(`<Card className="messagesCard">
+            <Card.Body>
+                <Card.Title>${username}</Card.Title>
+                <Card.Text>
+                ${content}
+                </Card.Text>
+                <Card onClick(() => {<Route path='/PrivMessages'})>
+            </Card.Body>
+            </Card>`)
+        )
+        })}
         </>
     )
 }
