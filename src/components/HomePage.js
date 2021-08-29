@@ -40,11 +40,6 @@ export default function HomePage(props) {
     useEffect(() => {
         fetchPosts()
     }, [])
-    
-    function handleSearchClick() {
-        console.log('Search Clicked')
-    }
-
 
 
 
@@ -53,7 +48,7 @@ export default function HomePage(props) {
         <>
         {loggedInUser ? AuthenticatedHeader : null}
         {!loggedInUser ? UnauthenticatedHeader : null}
-        <SearchBox handleSearchClick={handleSearchClick} loggedInUser={loggedInUser}/>
+        <SearchBox postList={postList} loggedInUser={loggedInUser} RenderPosts={RenderPosts}/>
         
 
 

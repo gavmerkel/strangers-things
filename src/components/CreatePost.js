@@ -10,7 +10,7 @@ export default function CreatePost(props) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
-    const [location, setLocation] = useState('')
+    const [location, setLocation] = useState(undefined)
     const [willDeliver, setWillDeliver] = useState(false)
     const [message, setMessage] = useState(null)
 
@@ -23,6 +23,10 @@ export default function CreatePost(props) {
         event.preventDefault()
         console.log('Submitted')
         setMessage(null)
+
+        if(location === undefined) {
+            setLocation("[On Request]")
+        }
 
         try {
             const result = await fetch(`${BASE_URL}/posts`, {
@@ -46,7 +50,7 @@ export default function CreatePost(props) {
 
             console.log(response)
             console.log(localStorage.getItem('currentUserToken'))
-            setMessage('Post created successfully! Create another post below or click here to return to the homepage')
+            setMessage('Post created successfully! Create another post below or return to the homepage')
 
         } catch (error) {
             console.error(error)

@@ -8,6 +8,7 @@ export default function Logout(props) {
 
     function _logOut() {
         localStorage.removeItem('currentUserToken')
+        localStorage.removeItem('currentUserUsername')
     }
 
     
