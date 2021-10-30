@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { Card, Form, Button, Container, Alert } from 'react-bootstrap'
 import { BASE_URL } from './Api'
-import { Alert } from 'react-bootstrap'
 
 const Login = (props) => {
     const [formSubmittedSuccessfully, setFormSubmittedSuccessfully] = useState(false);
@@ -11,33 +11,11 @@ const Login = (props) => {
     const [error, setError] = useState(null)
 
 
+
     async function authenticate(event) {
         event.preventDefault();
 
         setFormSubmittedSuccessfully(false)
-
-        // if (username !== '' && password !== '') {
-        //     fetch(`${BASE_URL}/users/login`, {
-        //         method: "POST", 
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             user: {
-        //                 username: username,
-        //                 password: password
-        //             }
-        //         })
-        //     }).then(response => response.json())
-        //     .then(result => {
-        //         console.log(result);
-        //     })
-        //     .catch(console.error);
-        // }
-
-        // setIsUserLoggedIn(true)
-
-        // setFormSubmittedSuccessfully(true);
 
         setError(null)
 
@@ -104,26 +82,46 @@ const Login = (props) => {
 
     return (
         <>
+
         {EmptyHeader}
 
-        {error ? <Alert variant='danger'>{error}</Alert> : null}
+        <Container className='d-flex flex-column align-items-center justify-content-center' style={{ minHeight: '100vh' }}>
 
-        <section className="login">
-        <form onSubmit={authenticate}>
-            <label>
-                Username:
-            <input type="text" username="username" onChange={(event) => setUsername(event.target.value)} value={username}/>
-            </label>
-            <label>
-                Password:
-            <input type="password" password="password" onChange={(event) => setPassword(event.target.value)} value={password}/>
-            </label>
-            
-            <button type="submit">LOGIN</button>
 
-            <Link className="lnkBtn" to="/sign-up">SIGN UP</Link>
-        </form>
-        </section>
+        <Card >
+            <Card.Body className='text-center'>
+                <Form onSubmit={authenticate}>
+                    {error ? <Alert variant='danger'>{error}</Alert> : null}
+
+                    <Card.Title>Log In</Card.Title>
+
+                    <Card.Text>
+                    Type in your Username and Password to log in below!
+                    </Card.Text>
+
+                    <Form.Group id="username">
+                        <Form.Label></Form.Label>
+                        <Form.Control type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
+                    </Form.Group>
+
+                    <Form.Group id="password">
+                        <Form.Label></Form.Label>
+                        <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                    </Form.Group>
+
+                    <Button className='mt-3' variant="primary" type='submit'>Log In</Button>
+
+                </Form>
+
+            </Card.Body>
+        </Card>
+
+        <div>
+            Don't have an account? <Link to='/sign-up'>Sign Up</Link>
+        </div>
+
+        </Container>
+
         </>
     )
     

@@ -8,7 +8,7 @@ export default function RenderPosts(post) {
 
     const { title, description, price, location, username, loggedInUser, willDeliver, id} = post
     const [currentlyEditing, setCurrentlyEditing] = useState(false)
-    //const [PostID, setPostID] = useState(null)
+    const [messageToUser, setMessageToUser] = useState("")
 
 
     async function handleDelete(postId) {
@@ -29,10 +29,6 @@ export default function RenderPosts(post) {
         }
     }
 
-    async function handleEdit(postId) {
-        
-    }
-
 
     function allowEdit() {
         if(username === localStorage.getItem('currentUserUsername')) {
@@ -42,9 +38,16 @@ export default function RenderPosts(post) {
                                                 ogdescription={description} 
                                                 ogprice={price} 
                                                 oglocation={location}
-                                                ogwillDeliver={willDeliver}/> 
+                                                /> 
                                                 : null
         }
+    }
+
+    async function handleSendMessage(username) {
+        if(messageToUser !== "") {
+            
+        }
+        console.log(username)
     }
 
     return (<Card className="mt-5">
@@ -66,20 +69,16 @@ export default function RenderPosts(post) {
                 ? 
                 <>
 
-                {/* <Link to={{
-                    pathname: "/edit-post",
-                    postIdent: PostID
-                }}>  */}
+
                 <Button className="mx-3" value={id} onClick={(e) => setCurrentlyEditing(e.target.value)}>Edit Post</Button>
 
-                {/* </Link> */}
 
                 <Button className="mx-3" variant="danger" value={id} onClick={(e) => handleDelete(e.target.value)}>Delete Post</Button>
                 </>
                 : 
                 <>
-                    <input disabled={!loggedInUser} type="text" placeholder="Send a message..."/>
-                    <Button disabled={!loggedInUser} variant="primary" className="mx-3">Send</Button>
+                    <input disabled={!loggedInUser} type="text" placeholder="Send a message..." onChange={e => setMessageToUser(e.target.value)}/>
+                    <Button disabled={!loggedInUser} variant="primary" className="mx-3" onClick={e => handleSendMessage(username)}>Send</Button>
                 </>}
 
                 {allowEdit()}

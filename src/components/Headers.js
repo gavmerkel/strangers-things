@@ -46,7 +46,6 @@ export function AuthenticatedHeader() {
                 <div className="divUnauthHeader">
                 <Link to="/home" className="authNavBtns"><Button>Home</Button></Link>
                 <Link to="/private-messages"  className="authNavBtns"><Button>Messages</Button></Link>
-                <Link to="/profile"  className="authNavBtns"><Button>Profile</Button></Link>
                 <Link to="/log-out"  className="authNavBtns"><Button>Log Out</Button></Link>
 
                 </div>

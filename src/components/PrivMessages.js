@@ -34,7 +34,7 @@ export default function PrivMessages(props) {
 
     }
 
-    if (userisLoggedIn) {
+    if (loggedInUser) {
 
     return (
         <>

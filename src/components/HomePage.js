@@ -8,6 +8,7 @@ export default function HomePage(props) {
 
     const {AuthenticatedHeader, UnauthenticatedHeader, loggedInUser, setLoggedInUser} = props
     const [postList, setPostList] = useState([])
+    const [searchPostList, setSearchPostList] = useState([])
     
 
     function checkIfLoggedIn() {
@@ -42,17 +43,51 @@ export default function HomePage(props) {
     }, [])
 
 
+    const searchChecker = searchPostList[0]
 
+    function searchCheck(searchPostList, postList) {
+
+        if (searchPostList[0]) {
+            return searchPostList.map((post) => {
+                return <RenderPosts 
+                        title={post.title}
+                        description={post.description}
+                        price={post.price}
+                        location={post.location}
+                        username={post.author.username}
+                        willDeliver={post.willDeliver}
+                        id={post._id}
+                        key={post._id}
+                        loggedInUser={loggedInUser}
+                        />
+            })
+        } else if(!searchPostList[0]) {
+            return postList.map((post) => {
+                return <RenderPosts 
+                        title={post.title}
+                        description={post.description}
+                        price={post.price}
+                        location={post.location}
+                        username={post.author.username}
+                        willDeliver={post.willDeliver}
+                        id={post._id}
+                        key={post._id}
+                        loggedInUser={loggedInUser}
+                        />
+            })
+        }
+
+    }
 
     return (
         <>
         {loggedInUser ? AuthenticatedHeader : null}
         {!loggedInUser ? UnauthenticatedHeader : null}
-        <SearchBox postList={postList} loggedInUser={loggedInUser} RenderPosts={RenderPosts}/>
+        <SearchBox loggedInUser={loggedInUser} RenderPosts={RenderPosts} postList={postList} setSearchPostList={setSearchPostList}/>
         
 
 
-        {postList.map((post) => {
+        {/* {postList.map((post) => {
             return <RenderPosts 
                     title={post.title}
                     description={post.description}
@@ -64,7 +99,11 @@ export default function HomePage(props) {
                     key={post._id}
                     loggedInUser={loggedInUser}
                     />
-        })}
+        })} */}
+
+        {
+            searchCheck(searchPostList, postList)
+        }
 
 
         

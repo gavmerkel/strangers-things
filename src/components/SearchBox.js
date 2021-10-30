@@ -5,38 +5,33 @@ import { Link } from 'react-router-dom'
 
 export default function SearchBox(props) {
 
-    const { loggedInUser, postList } = props
-    const [posts, setPosts] = useState([...postList])
+    const { loggedInUser, postList, setSearchPostList } = props
     const [searchTerm, setSearchTerm] = useState('')
 
-    function postMatches(post, text) {
-        if(post.includes(text)) {
-            return true
-        }
+    
+
+
+    function handleSearchUpdate(e) {
+        
+
+        const filteredPosts = postList.filter((post) => {
+
+            const title = post.title.toLowerCase()
+            const author = post.author.username.toLowerCase()
+            const term = searchTerm.toLowerCase()
+
+            return (
+                title.includes(term) ||
+                author.includes(term)
+            )
+        })
+
+        console.log("the filtered posts", filteredPosts)
+
+        setSearchPostList(filteredPosts)
+        
     }
 
-    const filteredPosts = posts.filter(post => postMatches(post, searchTerm))
-    const postsToDisplay = searchTerm.length ? filteredPosts : posts
-
-
-    function handleSearchClick() {
-        console.log('search clicked')
-        console.log(searchTerm)
-
-        {filteredPosts.map((post) => {
-            return <RenderPosts 
-                    title={post.title}
-                    description={post.description}
-                    price={post.price}
-                    location={post.location}
-                    username={post.author.username}
-                    willDeliver={post.willDeliver}
-                    id={post._id}
-                    key={post._id}
-                    loggedInUser={loggedInUser}
-                    />
-        })}
-    }
 
     return (
         <Card className="w-auto mx-auto">
@@ -44,11 +39,13 @@ export default function SearchBox(props) {
 
                 <Card.Title className="align-items-center justify-content-center">
                     
-                    Search Posts <input type="text" placeholder="Type here to find a post..." onChange={(e) => setSearchTerm(e.target.value)}/> 
+                    Search Posts <input type="text" placeholder="Type here to find a post..." onChange={(e) => {
+                        setSearchTerm(e.target.value)
+                        handleSearchUpdate(e.target.value)
+                    }}/> 
 
-                    <Button className="mx-3" onClick={handleSearchClick}>Search(not active yet)</Button> 
 
-                    <Link to="/create-a-post"><Button disabled={!loggedInUser} className="mx-2">Create Post</Button></Link>
+                    <Link to="/create-a-post"><Button disabled={!loggedInUser} className="mx-3">Create Post</Button></Link>
                     
                 </Card.Title>
 
